@@ -1,0 +1,2 @@
+# MongooseCpp
+Mongoose c++ library
