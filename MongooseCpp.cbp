@@ -6,11 +6,15 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Release">
+			<Target title="Release-Win">
+				<Option platforms="Windows;" />
 				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Compiler>
+					<Add directory="src" />
+				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="ws2_32" />
@@ -23,7 +27,21 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="/DDEBUG" />
+					<Add directory="src" />
 				</Compiler>
+			</Target>
+			<Target title="Release-Lin">
+				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add directory="src" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -34,6 +52,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="dependency/mongoose/mongoose.h" />
+		<Unit filename="src/WebServer.cpp" />
+		<Unit filename="src/WebServer.h" />
 		<Unit filename="test/main.cpp" />
 		<Extensions>
 			<code_completion />
