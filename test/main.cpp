@@ -1,46 +1,46 @@
-// Copyright (c) 2015 Cesanta Software Limited
-// All rights reserved
-
 #include <iostream>
-#include "mongoose/mongoose.h"
+#include "main.h"
+#include "WebServer.h"
 
 using namespace std;
 
-static const char *s_http_port = "8001";
-static struct mg_serve_http_opts s_http_server_opts;
 
-static void ev_handler(struct mg_connection *nc, int ev, void *p)
+MyController::MyController(string name)
 {
-    cout << "EVT : " << ev << endl;
-  if (ev == MG_EV_HTTP_REQUEST) {
-    cout << "RQ..." << endl;
-    mg_serve_http(nc, (struct http_message *) p, s_http_server_opts);
-  }
+    m_Name = name;
 }
 
-int main(void) {
-  struct mg_mgr mgr;
-  struct mg_connection *nc;
+MyController::~MyController()
+{
+}
 
-  mg_mgr_init(&mgr, NULL);
-  printf("Starting web server on port %s\n", s_http_port);
-  nc = mg_bind(&mgr, s_http_port, ev_handler);
-  if (nc == NULL) {
-    printf("Failed to create listener\n");
-    return 1;
-  }
+bool MyController::Process(const MongooseCpp::Request& request, MongooseCpp::Response& response)
+{
+    response.SetContent(m_Name);
+    return true;
+}
 
-  // Set up HTTP server parameters
-  mg_set_protocol_http_websocket(nc);
-  s_http_server_opts.document_root = ".";  // Serve current directory
-  s_http_server_opts.enable_directory_listing = "yes";
+int main(void)
+{
+    MongooseCpp::WebServer server;
 
-  for (;;) {
-    mg_mgr_poll(&mgr, 1000);
-  }
-  mg_mgr_free(&mgr);
+    server.AddRoute("/web/*", new MyController("Web"));
+    server.AddRoute("/api/v1/modules/[id]", new MyController("modules"));
+    server.AddRoute("/api/v1/devices/[id]/*", new MyController("devices"));
+    server.AddRoute("/api/v1/{controller}/[id]", new MyController("multiController"));
 
-  return 0;
+    if(!server.Start())
+    {
+        return -1;
+    }
+
+    for(;;)
+    {
+        server.Poll();
+    }
+    server.Stop();
+
+    return 0;
 }
 
 /*

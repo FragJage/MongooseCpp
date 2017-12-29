@@ -36,7 +36,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
 					<Add directory="src" />
 				</Compiler>
 				<Linker>
@@ -45,6 +44,8 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-DMG_ENABLE_CALLBACK_USERDATA" />
 			<Add directory="dependency" />
 			<Add directory="src" />
 		</Compiler>
@@ -52,9 +53,19 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="dependency/mongoose/mongoose.h" />
+		<Unit filename="src/ApiController.cpp" />
+		<Unit filename="src/ApiController.h" />
+		<Unit filename="src/IWebController.h" />
+		<Unit filename="src/PageController.cpp" />
+		<Unit filename="src/PageController.h" />
+		<Unit filename="src/Request.cpp" />
+		<Unit filename="src/Request.h" />
+		<Unit filename="src/Response.cpp" />
+		<Unit filename="src/Response.h" />
 		<Unit filename="src/WebServer.cpp" />
 		<Unit filename="src/WebServer.h" />
 		<Unit filename="test/main.cpp" />
+		<Unit filename="test/main.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
