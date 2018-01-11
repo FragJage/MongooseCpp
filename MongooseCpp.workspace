@@ -3,5 +3,7 @@
 	<Workspace title="MongooseCpp">
 		<Project filename="MongooseCpp.cbp" />
 		<Project filename="Example1.cbp" />
+		<Project filename="Example2.cbp" />
+		<Project filename="Example3.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

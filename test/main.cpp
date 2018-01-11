@@ -9,10 +9,8 @@
 using namespace std;
 
 //TO DO
-//Example 1 : Simple web server
-//Example 2 : Web server with page controller
-//Example 3 : Web Api server with json controller
 //Write ReadMe.md
+//Add Travis file
 
 int main(void)
 {
