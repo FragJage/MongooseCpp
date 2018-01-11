@@ -21,6 +21,8 @@ class Request
         HttpMethod GetMethod();
         bool ExistsParameter(std::string key);
         std::string GetParameter(std::string key);
+        std::string GetQueryParameter(std::string key);
+        std::string GetBodyParameter(std::string key);
         template <typename T> T GetParameter(std::string key)
         {
             std::string value = GetParameter(key);

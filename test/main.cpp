@@ -9,10 +9,10 @@
 using namespace std;
 
 //TO DO
-//Câbler le Kill
 //Example 1 : Simple web server
 //Example 2 : Web server with page controller
 //Example 3 : Web Api server with json controller
+//Write ReadMe.md
 
 int main(void)
 {

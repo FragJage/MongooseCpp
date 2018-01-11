@@ -61,6 +61,26 @@ string Request::GetUriPart(int part)
     return m_UriPart[part];
 }
 
+string Request::GetBodyParameter(string key)
+{
+    char param[128];
+    int len;
+
+    len = mg_get_http_var(&m_HttpMsg->body, key.c_str(), param, sizeof(param));
+    if(len<0) return "";
+    return string(param, len);
+}
+
+string Request::GetQueryParameter(string key)
+{
+    char param[128];
+    int len;
+
+    len = mg_get_http_var(&m_HttpMsg->query_string, key.c_str(), param, sizeof(param));
+    if(len<0) return "";
+    return string(param, len);
+}
+
 bool Request::ExistsParameter(string key)
 {
     return (m_Parameters.find(key) != m_Parameters.end());

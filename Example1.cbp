@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="MongooseCpp" />
+		<Option title="Example1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -70,41 +70,18 @@
 			<Add directory="dependency" />
 			<Add directory="src" />
 		</Compiler>
-		<Unit filename="dependency/UnitTest/UnitTest.cpp" />
-		<Unit filename="dependency/UnitTest/UnitTest.h" />
-		<Unit filename="dependency/UnitTest/termcolor.h" />
 		<Unit filename="dependency/mongoose/mongoose.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="dependency/mongoose/mongoose.h" />
 		<Unit filename="examples/example1.cpp" />
-		<Unit filename="src/ApiController.cpp" />
-		<Unit filename="src/ApiController.h" />
 		<Unit filename="src/IWebController.h" />
-		<Unit filename="src/PageController.cpp" />
-		<Unit filename="src/PageController.h" />
 		<Unit filename="src/Request.cpp" />
 		<Unit filename="src/Request.h" />
 		<Unit filename="src/Response.cpp" />
 		<Unit filename="src/Response.h" />
-		<Unit filename="src/TypeController.h" />
 		<Unit filename="src/WebServer.cpp" />
 		<Unit filename="src/WebServer.h" />
-		<Unit filename="test/HttpClient.cpp" />
-		<Unit filename="test/HttpClient.h" />
-		<Unit filename="test/HttpHelper.cpp" />
-		<Unit filename="test/HttpHelper.h" />
-		<Unit filename="test/TestApiController.cpp" />
-		<Unit filename="test/TestApiController.h" />
-		<Unit filename="test/TestBaseController.cpp" />
-		<Unit filename="test/TestBaseController.h" />
-		<Unit filename="test/TestPageController.cpp" />
-		<Unit filename="test/TestPageController.h" />
-		<Unit filename="test/TestTypeController.cpp" />
-		<Unit filename="test/TestTypeController.h" />
-		<Unit filename="test/TestWebServer.cpp" />
-		<Unit filename="test/TestWebServer.h" />
-		<Unit filename="test/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

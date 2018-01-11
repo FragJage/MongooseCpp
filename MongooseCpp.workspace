@@ -2,5 +2,6 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="MongooseCpp">
 		<Project filename="MongooseCpp.cbp" />
+		<Project filename="Example1.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
