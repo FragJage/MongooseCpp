@@ -1,0 +1,35 @@
+language: cpp
+
+compiler: gcc
+env:
+  global:
+    - COMPILER=g++-4.9
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    #   via the "travis encrypt" command using the project repo's public key
+    - secure: ""
+
+addons:
+  apt:
+    sources: ['ubuntu-toolchain-r-test']
+    packages: ['g++-4.9','valgrind']
+  coverity_scan:
+    project:
+      name: "FragJage/MongooseCpp"
+      description: "Mongoose cpp wrapper"
+    notification_email: inscrip.jage@free.fr
+    build_command_prepend: "cov-configure --comptype g++ --compiler $COMPILER --template && cmake . -G'Unix Makefiles' -DCMAKE_CXX_COMPILER=$(which $COMPILER)"
+    build_command: "make"
+    branch_pattern: coverity_branch
+    
+install:
+  - pip install --user git+git://github.com/eddyxu/cpp-coveralls.git
+
+script:
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then cmake . -G"Unix Makefiles" -DCMAKE_CXX_COMPILER=$(which $COMPILER); fi
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then make; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ./test/bin/unittest; fi
+
+after_success:
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then valgrind --error-exitcode=1 --leak-check=full ./test/bin/unittest; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then sudo pip install -U "cpp-coveralls"; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then coveralls --include src --gcov-options '\-lp' --gcov 'gcov-4.9'; fi
