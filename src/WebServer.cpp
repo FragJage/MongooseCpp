@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <sstream>
 #include "WebServer.h"
 
@@ -35,20 +37,9 @@ void WebServer::StaticEventHandler(struct mg_connection* nc, int ev, void* ev_da
 
 void WebServer::EventHandler(struct mg_connection* nc, int ev, struct http_message* msg)
 {
-    /*
-    static struct mg_serve_http_opts s_http_server_opts;
-    s_http_server_opts.document_root = ".";  // Serve current directory
-    s_http_server_opts.enable_directory_listing = "yes";
-    if (ev == MG_EV_HTTP_REQUEST)
-    {
-        cout << "REQ " << endl;
-        mg_serve_http(nc, (struct http_message *) p, s_http_server_opts);
-    }
-    */
-
     vector<struct stController>::const_iterator it;
     bool match = false;
-    Request request(msg);
+    Request request(nc, msg);
     Response response;
 
     response.SetHeader("Server", "webServer/1.0.0");
@@ -70,10 +61,7 @@ void WebServer::EventHandler(struct mg_connection* nc, int ev, struct http_messa
     }
 
     if(!match)
-    {
         mg_http_send_error(nc, 404, "");
-        //response->SetContent("<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>WebServer</h1><h2>404 Not Found</h2></body></html>");
-    }
 }
 
 bool WebServer::Start()
@@ -100,9 +88,9 @@ void WebServer::Stop()
     m_isStarted = false;
 }
 
-void WebServer::Poll()
+void WebServer::Poll(unsigned int milliTimeout)
 {
-    mg_mgr_poll(&m_MgManager, 1000);
+    mg_mgr_poll(&m_MgManager, milliTimeout);
 }
 
 bool WebServer::AddRoute(const string& route, IWebController* controller)
@@ -121,6 +109,12 @@ bool WebServer::AddRoute(const string& route, IWebController* controller)
     while (getline(iss, token, '/'))
     {
         if(atTheEnd)
+        {
+            setLastError("ADDROUTE3", "Character '*' must be at the end of the route.");
+            return false;
+        }
+
+        if((token.find('*')!=string::npos)&&(token!="*"))
         {
             setLastError("ADDROUTE3", "Character '*' must be alone at the end of the route.");
             return false;
@@ -155,11 +149,6 @@ bool WebServer::AddRoute(const string& route, IWebController* controller)
                 break;
 
             case '*' :
-                if(token!="*")
-                {
-                    setLastError("ADDROUTE3", "Character '*' must be alone at the end of the route.");
-                    return false;
-                }
                 atTheEnd = true;
                 myParam.name = "*";
                 myParam.paramType = ParamType::Optional;

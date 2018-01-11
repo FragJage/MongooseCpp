@@ -12,10 +12,11 @@ class Request
 {
     public:
         enum HttpMethod {mthGET, mthPOST, mthPUT, mthDELETE, mthPATCH, mthHEAD, mthUNKNOWN};
-        Request(struct http_message* httpMsg);
+        Request(struct mg_connection* conn, struct http_message* httpMsg);
         virtual ~Request();
 
         std::string GetUri();
+        std::string GetBody();
         std::string GetUriPart(int part);
         HttpMethod GetMethod();
         bool ExistsParameter(std::string key);
@@ -29,11 +30,14 @@ class Request
             return val;
         }
         void SetParameter(const std::string& key, const std::string& value);
+        struct mg_connection* GetMgConnection();
+        struct http_message* GetHttpMsg();
 
     protected:
 
     private:
         struct http_message* m_HttpMsg;
+        struct mg_connection* m_Conn;
         HttpMethod m_Method;
         std::string m_Uri;
         std::vector<std::string> m_UriPart;

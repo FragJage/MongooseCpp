@@ -3,6 +3,7 @@
 
 #include<string>
 #include<map>
+#include "mongoose/mongoose.h"
 
 namespace MongooseCpp {
 
@@ -18,6 +19,7 @@ class Response
         bool HasHeader(std::string headerKey);
         void SetContent(std::string content);
         std::string GetData();
+        void SetStatut(int number);
 
     private:
         std::string m_Protocol;

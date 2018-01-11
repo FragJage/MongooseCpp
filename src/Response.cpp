@@ -1,18 +1,24 @@
-#include<sstream>
+#include <sstream>
 #include "Response.h"
 
 using namespace std;
+
 namespace MongooseCpp {
 
 Response::Response()
 {
     m_Protocol = "HTTP/1.1";
-    m_Statut = 200;
-    m_StatutMsg = "OK";
+    SetStatut(200);
 }
 
 Response::~Response()
 {
+}
+
+void Response::SetStatut(int number)
+{
+    m_Statut = number;
+    //m_StatutMsg = mg_status_message(number);
 }
 
 void Response::SetHeader(string headerKey, string value)

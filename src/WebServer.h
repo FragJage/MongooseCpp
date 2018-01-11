@@ -46,7 +46,7 @@ class WebServer
 
         bool Start();
         void Stop();
-        void Poll();
+        void Poll(unsigned int milliTimeout=100);
         bool AddRoute(const std::string& route, IWebController* controller);
         stError GetLastError();
         static void StaticEventHandler(struct mg_connection* nc, int ev, void* ev_data, void* user_data);

@@ -1,81 +1,54 @@
 #include <iostream>
-#include "main.h"
-#include "WebServer.h"
+#include "TestWebServer.h"
+#include "TestBaseController.h"
+#include "TestPageController.h"
+#include "TestApiController.h"
+#include "TestTypeController.h"
+
 
 using namespace std;
 
-
-MyController::MyController(string name)
-{
-    m_Name = name;
-}
-
-MyController::~MyController()
-{
-}
-
-bool MyController::Process(const MongooseCpp::Request& request, MongooseCpp::Response& response)
-{
-    response.SetContent(m_Name);
-    return true;
-}
+//TO DO
+//Câbler le Kill
+//Example 1 : Simple web server
+//Example 2 : Web server with page controller
+//Example 3 : Web Api server with json controller
 
 int main(void)
 {
+    int ret = 0;
+    UnitTest unitTest;
+
+
+    try
+    {
+        unitTest.addTestClass(new TestWebServer());
+        unitTest.addTestClass(new TestBaseController());
+        unitTest.addTestClass(new TestPageController());
+        unitTest.addTestClass(new TestApiController());
+        unitTest.addTestClass(new TestTypeController());
+    }
+    catch(const exception &e)
+    {
+        unitTest.displayError(e.what());
+        ret = -1;
+    }
+
+    if(ret!=-1)
+        if(!unitTest.run()) ret = 1;
+
+    return ret;
+
+    /*
     MongooseCpp::WebServer server;
+    JsonController myJsonCtrl;
 
-    server.AddRoute("/web/*", new MyController("Web"));
-    server.AddRoute("/api/v1/modules/[id]", new MyController("modules"));
-    server.AddRoute("/api/v1/devices/[id]/*", new MyController("devices"));
-    server.AddRoute("/api/v1/{controller}/[id]", new MyController("multiController"));
-
-    if(!server.Start())
-    {
-        return -1;
-    }
-
-    for(;;)
-    {
+    server.AddRoute("/api/v1/books/[Id]", &myJsonCtrl);
+    server.Start();
+    while(true)
         server.Poll();
-    }
+
     server.Stop();
-
     return 0;
+    */
 }
-
-/*
-server.setOption("document_root", "html");
-server.setOption("listening_ports", "8080");
-server.setOption("num_threads", "5");
-
-server.start();
-
-cout << "Test server started, press enter to quit..." << endl;
-cin.ignore();
-
-server.stop();
-*/
-/*
-    m_PagesController.SetRootDir(documentRoot);
-    m_PagesController.AddDefaultPage("index.html");
-    m_WebMgr.AddRoute("/web/*", &m_PagesController);
-
-    m_ModulesController.SetCacheManager(&m_CacheMgr);
-    m_ModulesController.SetxPLSender(&m_xPLMgr);
-    m_WebMgr.AddRoute("/api/v1/modules/[id]", &m_ModulesController);
-
-    m_AdvanceConfigController.SetCacheManager(&m_CacheMgr);
-    m_AdvanceConfigController.SetxPLSender(&m_xPLMgr);
-    m_WebMgr.AddRoute("/api/v1/advanceconfig/[id]", &m_AdvanceConfigController);
-
-    m_DevicesController.SetCacheManager(&m_CacheMgr);
-    m_DevicesController.SetxPLSender(&m_xPLMgr);
-    m_WebMgr.AddRoute("/api/v1/devices/[id]", &m_DevicesController);
-
-    m_DataloggersController.SetCacheManager(&m_CacheMgr);
-    m_DataloggersController.SetxPLSender(&m_xPLMgr);
-    m_WebMgr.AddRoute("/api/v1/datalogger/{search}/[device]", &m_DataloggersController);
-
-    m_MessagesController.SetxPLSender(&m_xPLMgr);
-    m_WebMgr.AddRoute("/api/v1/messages/", &m_MessagesController);
-*/

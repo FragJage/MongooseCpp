@@ -334,10 +334,12 @@ unsigned int sleep(unsigned int seconds);
 /* https://stackoverflow.com/questions/16647819/timegm-cross-platform */
 #define timegm _mkgmtime
 
+#ifndef gmtime_r
 #define gmtime_r(a, b) \
   do {                 \
     *(b) = *gmtime(a); \
   } while (0)
+#endif
 
 #endif /* CS_PLATFORM == CS_P_WINDOWS */
 #endif /* CS_COMMON_PLATFORMS_PLATFORM_WINDOWS_H_ */
@@ -2417,10 +2419,12 @@ struct name {								\
 #define	SLIST_HEAD_INITIALIZER(head)					\
 	{ NULL }
 
+#ifndef SLIST_ENTRY
 #define	SLIST_ENTRY(type)						\
 struct {								\
 	struct type *sle_next;	/* next element */			\
 }
+#endif
 
 #define	SLIST_CLASS_ENTRY(type)						\
 struct {								\
