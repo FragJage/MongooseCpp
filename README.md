@@ -2,7 +2,6 @@
 Mongoose c++ library
 [![Build Status](https://travis-ci.org/FragJage/MongooseCpp.svg?branch=master)](https://travis-ci.org/FragJage/MongooseCpp)
 [![Coverage Status](https://coveralls.io/repos/github/FragJage/MongooseCpp/badge.svg?branch=master&bust=0)](https://coveralls.io/github/FragJage/MongooseCpp?branch=master)
-[![Coverity Scan Build](https://scan.coverity.com/projects/nnnnn/badge.svg)](https://scan.coverity.com/projects/nnnnn)
 
 MongooseCpp
 ===========
@@ -22,29 +21,30 @@ Features
 
 How to use
 ==========
- - Add src and dependency/mongoose folder into your project and see exaples folder.
+ Add src and dependency/mongoose folder into your project and see examples folder.
+ For example :
     
-	int main()
-	{
-		WebServer myServer;
-		HelloController helloController;
-		PageController pageController("./", true);
-		JsonController jsonController;
-		MultiController multiController;
-
-		myServer.AddRoute("/hello", &helloController);
-		myServer.AddRoute("/examples/*", &pageController);
-		myServer.AddRoute("/api/v1/books/[Id]", &jsonController);
-		myServer.AddRoute("/multi/{controller}/[Id]", &multiController);
-
-		myServer.Start();
-		while(true)
+		int main()
 		{
-			myServer.Poll();
+			WebServer myServer;
+			HelloController helloController;
+			PageController pageController("./", true);
+			JsonController jsonController;
+			MultiController multiController;
+
+			myServer.AddRoute("/hello", &helloController);
+			myServer.AddRoute("/examples/*", &pageController);
+			myServer.AddRoute("/api/v1/books/[Id]", &jsonController);
+			myServer.AddRoute("/multi/{controller}/[Id]", &multiController);
+
+			myServer.Start();
+			while(true)
+			{
+				myServer.Poll();
+			}
+			myServer.Stop();
+			return 0;
 		}
-		myServer.Stop();
-		return 0;
-	}
 
 Portability
 ===========

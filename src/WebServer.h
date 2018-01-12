@@ -8,12 +8,14 @@
 #include "IWebController.h"
 
 
+#ifdef __MINGW32__
 static std::string to_string(int data)
 {
     std::stringstream s;
     s<<data;
     return s.str();
 }
+#endif // MINGW
 
 namespace MongooseCpp {
 

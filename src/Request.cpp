@@ -37,7 +37,6 @@ Request::Request(struct mg_connection* conn, struct http_message* httpMsg)
 
 Request::~Request()
 {
-    //dtor
 }
 
 Request::HttpMethod Request::GetMethod()
@@ -55,7 +54,7 @@ string Request::GetBody()
     return string(m_HttpMsg->body.p, m_HttpMsg->body.len);
 }
 
-string Request::GetUriPart(int part)
+string Request::GetUriPart(unsigned int part)
 {
     if(part>=m_UriPart.size()) return "";
     return m_UriPart[part];

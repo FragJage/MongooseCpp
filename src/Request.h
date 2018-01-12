@@ -17,7 +17,7 @@ class Request
 
         std::string GetUri();
         std::string GetBody();
-        std::string GetUriPart(int part);
+        std::string GetUriPart(unsigned int part);
         HttpMethod GetMethod();
         bool ExistsParameter(std::string key);
         std::string GetParameter(std::string key);

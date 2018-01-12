@@ -22,10 +22,10 @@ bool ApiController::Process(Request& request, Response& response)
             return Post(request, response);
         case Request::HttpMethod::mthDELETE :
             return Delete(request, response);
+        default :
+            response.SetStatut(405);
+            return true;
     }
-
-    response.SetStatut(405);
-    return true;
 }
 
 bool ApiController::Get(Request& request, Response& response)
