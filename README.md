@@ -20,6 +20,7 @@ Features
 How to use
 ==========
  Add src and dependency/mongoose folder into your project and see examples folder.
+ Add define MG_ENABLE_CALLBACK_USERDATA.
  For example :
     
 		int main()
