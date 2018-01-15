@@ -1,5 +1,3 @@
-# MongooseCpp
-Mongoose c++ library
 [![Build Status](https://travis-ci.org/FragJage/MongooseCpp.svg?branch=master)](https://travis-ci.org/FragJage/MongooseCpp)
 [![Coverage Status](https://coveralls.io/repos/github/FragJage/MongooseCpp/badge.svg?branch=master&bust=0)](https://coveralls.io/github/FragJage/MongooseCpp?branch=master)
 
