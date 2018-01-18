@@ -65,8 +65,10 @@ class TypeController : public ApiController
                         response.SetContent("OK");
                     }
                     return true;
+                default:
+                    response.SetStatut(405);
+                    return true;
             }
-
             response.SetStatut(405);
             return true;
         }

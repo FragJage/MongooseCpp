@@ -3,16 +3,16 @@
 using namespace std;
 namespace MongooseCpp {
 
-PageController::PageController(string documentRoot, bool enableDirectoryListing)
+PageController::PageController(string documentRoot, bool enableDirectoryListing) : m_DocumentRoot(documentRoot), m_EnableDirectoryListing(enableDirectoryListing)
 {
-    m_DocumentRoot = documentRoot;
-    m_EnableDirectoryListing = enableDirectoryListing;
 }
 
 PageController::~PageController()
 {
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is a virtual function
 bool PageController::Process(Request& request, Response& response)
 {
     static struct mg_serve_http_opts s_http_server_opts;
@@ -27,5 +27,6 @@ bool PageController::Process(Request& request, Response& response)
     mg_serve_http(nc, msg, s_http_server_opts);
     return true;
 }
+#pragma GCC diagnostic pop
 
 }

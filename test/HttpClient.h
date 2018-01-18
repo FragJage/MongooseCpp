@@ -30,7 +30,7 @@ class HttpClient
 {
     public:
         HttpClient();
-        virtual ~HttpClient();
+        ~HttpClient();
 
         bool SendRequest(std::string method, std::string host, int port, std::string path, std::string body="");
         bool WaitingResponse(unsigned int millisecond=100);

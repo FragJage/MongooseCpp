@@ -12,8 +12,11 @@ class Request
 {
     public:
         enum HttpMethod {mthGET, mthPOST, mthPUT, mthDELETE, mthPATCH, mthHEAD, mthUNKNOWN};
+        Request();
         Request(struct mg_connection* conn, struct http_message* httpMsg);
-        virtual ~Request();
+        Request(const Request& resquest);
+        Request& operator=(Request other);
+        ~Request();
 
         std::string GetUri();
         std::string GetBody();
@@ -32,12 +35,13 @@ class Request
             return val;
         }
         void SetParameter(const std::string& key, const std::string& value);
-        struct mg_connection* GetMgConnection();
-        struct http_message* GetHttpMsg();
+        struct mg_connection* GetMgConnection() const;
+        struct http_message* GetHttpMsg() const;
 
     protected:
 
     private:
+        void Initialization(struct mg_connection* conn, struct http_message* httpMsg);
         struct http_message* m_HttpMsg;
         struct mg_connection* m_Conn;
         HttpMethod m_Method;

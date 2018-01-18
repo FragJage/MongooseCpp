@@ -7,7 +7,7 @@
 
 using namespace std;
 
-HttpClient::HttpClient()
+HttpClient::HttpClient() : m_Sock(), m_Page()
 {
     #if defined(WIN32)
         WSADATA WSAData;
@@ -79,10 +79,10 @@ bool HttpClient::SendRequest(string method, string host, int port, string path, 
     unsigned int sendSum = 0;
     int sendByte = -1;
 
-	#ifdef __MINGW32__
-		strcpy(charBuffer, stringBuffer.c_str());
-	#else
+	#ifdef _MSC_VER
 		strcpy_s(charBuffer, stringBuffer.size()+1, stringBuffer.c_str());
+	#else
+        strcpy(charBuffer, stringBuffer.c_str());
 	#endif
 
     while(sendSum < sendMax)
@@ -105,7 +105,7 @@ bool HttpClient::WaitingResponse(unsigned int milliTimeout)
      fd_set readfs;
      FD_ZERO(&readfs);
      FD_SET(m_Sock,&readfs);
-     int nb = select(m_Sock+1,&readfs,NULL,NULL,&timeout);
+     int nb = select(m_Sock+1, &readfs, nullptr, nullptr, &timeout);
 
      return (nb>0);
 }

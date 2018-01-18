@@ -5,10 +5,8 @@ using namespace std;
 
 namespace MongooseCpp {
 
-Response::Response()
+Response::Response() : m_Protocol("HTTP/1.1"), m_Statut(200), m_StatutMsg(), m_Headers(), m_Content()
 {
-    m_Protocol = "HTTP/1.1";
-    SetStatut(200);
 }
 
 Response::~Response()

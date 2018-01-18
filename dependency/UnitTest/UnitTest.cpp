@@ -3,7 +3,7 @@
 
 using namespace std;
 
-UnitTest::UnitTest()
+UnitTest::UnitTest() : m_TestClassList()
 {
 }
 

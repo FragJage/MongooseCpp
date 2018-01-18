@@ -4,7 +4,27 @@
 using namespace std;
 namespace MongooseCpp {
 
-Request::Request(struct mg_connection* conn, struct http_message* httpMsg)
+Request::Request() : m_HttpMsg(nullptr), m_Conn(nullptr), m_Method(Request::mthUNKNOWN), m_Uri(), m_UriPart(), m_Parameters()
+{
+}
+
+Request::Request(struct mg_connection* conn, struct http_message* httpMsg) : Request()
+{
+    Initialization(conn, httpMsg);
+}
+
+Request::Request(const Request& resquest) : Request()
+{
+    Initialization(resquest.GetMgConnection(), resquest.GetHttpMsg());
+}
+
+Request& Request::operator=(Request resquest)
+{
+    Initialization(resquest.GetMgConnection(), resquest.GetHttpMsg());
+    return *this;
+}
+
+void Request::Initialization(struct mg_connection* conn, struct http_message* httpMsg)
 {
     string method(httpMsg->method.p, httpMsg->method.len);
 
@@ -96,12 +116,12 @@ void Request::SetParameter(const string& key, const string& value)
     m_Parameters[key] = value;
 }
 
-struct mg_connection* Request::GetMgConnection()
+struct mg_connection* Request::GetMgConnection() const
 {
     return m_Conn;
 }
 
-struct http_message* Request::GetHttpMsg()
+struct http_message* Request::GetHttpMsg() const
 {
     return m_HttpMsg;
 }

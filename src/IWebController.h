@@ -30,6 +30,7 @@ namespace MongooseCpp {
 class IWebController
 {
 	public:
+	    virtual ~IWebController() {};
 		virtual bool Process(Request& request, Response& response) = 0;
 };
 

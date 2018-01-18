@@ -1,3 +1,9 @@
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#pragma GCC diagnostic ignored "-Wshadow"
+#pragma GCC diagnostic ignored "-Wlong-long"
+#pragma GCC diagnostic ignored "-Wformat="
+
 #include "mongoose.h"
 #ifdef MG_MODULE_LINES
 #line 1 "mongoose/src/internal.h"
@@ -16430,3 +16436,5 @@ unsigned int sleep(unsigned int seconds) {
 }
 
 #endif /* _WIN32 */
+
+#pragma GCC diagnostic pop

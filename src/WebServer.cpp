@@ -2,17 +2,24 @@
 #include "WebServer.h"
 
 using namespace std;
+
+#ifdef __MINGW32__
+static std::string to_string(int data)
+{
+    std::stringstream s;
+    s<<data;
+    return s.str();
+}
+#endif // MINGW
+
 namespace MongooseCpp {
 
 WebServer::WebServer() : WebServer(8000)
 {
 }
 
-WebServer::WebServer(int TCPPort)
+WebServer::WebServer(int TCPPort) : m_isStarted(false), m_LastError(), m_TCPPort(TCPPort), m_Controllers(), m_MgManager(), m_MgConnection(nullptr)
 {
-    m_MgConnection = nullptr;
-    m_TCPPort = TCPPort;
-    m_isStarted = false;
 }
 
 WebServer::~WebServer()
@@ -35,6 +42,8 @@ void WebServer::StaticEventHandler(struct mg_connection* nc, int ev, void* ev_da
 
 void WebServer::EventHandler(struct mg_connection* nc, int ev, struct http_message* msg)
 {
+    if(ev != MG_EV_HTTP_REQUEST) return;
+
     vector<struct stController>::const_iterator it;
     bool match = false;
     Request request(nc, msg);

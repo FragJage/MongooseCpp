@@ -26,6 +26,9 @@ bool BaseController::Process(MongooseCpp::Request& request, MongooseCpp::Respons
             case MongooseCpp::Request::mthHEAD :
                 response.SetContent("mthHEAD");
                 return true;
+            default:
+                response.SetStatut(404);
+                return true;
         }
     }
     else

@@ -8,33 +8,27 @@
 #include "IWebController.h"
 
 
-#ifdef __MINGW32__
-static std::string to_string(int data)
-{
-    std::stringstream s;
-    s<<data;
-    return s.str();
-}
-#endif // MINGW
-
 namespace MongooseCpp {
 
 enum ParamType { Fixed, Required, Optional};
 
 struct stParam
 {
+    stParam() : name(), paramType(Fixed) {};
     std::string name;
     ParamType paramType;
 };
 
 struct stController
 {
+    stController() : controller(nullptr), paramPartQuery() {};
     IWebController* controller;
     std::vector<struct stParam> paramPartQuery;
 };
 
 struct stError
 {
+    stError() : Code(), Message() {};
     std::string Code;
     std::string Message;
 };
@@ -44,7 +38,7 @@ class WebServer
     public:
         WebServer();
         WebServer(int TCPPort);
-        virtual ~WebServer();
+        ~WebServer();
 
         bool Start();
         void Stop();

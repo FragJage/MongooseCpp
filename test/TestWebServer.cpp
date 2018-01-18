@@ -5,11 +5,14 @@ using namespace std;
 EmptyController::EmptyController() {}
 EmptyController::~EmptyController() {}
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is virtual functions
 bool EmptyController::Process(MongooseCpp::Request& request, MongooseCpp::Response& response)
 {
     response.SetStatut(405);
     return true;
 }
+#pragma GCC diagnostic pop
 
 TestWebServer::TestWebServer() : TestClass("WebServer", this)
 {

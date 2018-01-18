@@ -11,7 +11,7 @@ class Response
 {
     public:
         Response();
-        virtual ~Response();
+        ~Response();
 
         void SetHeader(std::string headerKey, std::string value);
         void SetHeader(std::string key, int value);
