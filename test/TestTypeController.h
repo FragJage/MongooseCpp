@@ -18,22 +18,22 @@ class Book
         int Stock;
 };
 
-class JsonController : public MongooseCpp::TypeController<int, Book>
+class JsonController : public MongooseCpp::TypeController<unsigned int, Book>
 {
     public:
         JsonController();
         ~JsonController();
 
         bool GetList(MongooseCpp::Request& request, MongooseCpp::Response& response);
-        bool Get(const int& Id, Book& book, MongooseCpp::Response& response);
+        bool Get(const unsigned int& Id, Book& book, MongooseCpp::Response& response);
         bool Post(const Book& book, MongooseCpp::Response& response);
-        bool Put(const int& Id, const Book& book, MongooseCpp::Response& response);
-        bool Delete(const int& Id, MongooseCpp::Response& response);
+        bool Put(const unsigned int& Id, const Book& book, MongooseCpp::Response& response);
+        bool Delete(const unsigned int& Id, MongooseCpp::Response& response);
 
         std::string ToString(const Book& book);
         void ToObject(std::string value, Book& book);
     protected:
-        int ToId(std::string value);
+		unsigned int ToId(std::string value);
     private:
         std::vector<Book> m_Datas;
 };

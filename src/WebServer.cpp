@@ -99,6 +99,7 @@ bool WebServer::AddRoute(const string& route, IWebController* controller)
 
     bool atTheEnd = false;
     bool hasOptional = false;
+	char firstChar;
     istringstream iss(route);
     string token;
     stParam myParam;
@@ -118,7 +119,12 @@ bool WebServer::AddRoute(const string& route, IWebController* controller)
             return false;
         }
 
-        switch(token.front())
+		if (token != "")
+			firstChar = token.front();
+		else
+			firstChar = '\0';
+
+        switch(firstChar)
         {
             case '{' :
                 if(token.back()!='}')

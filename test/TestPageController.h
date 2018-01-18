@@ -1,4 +1,8 @@
 #include <cassert>
+#include "PageController.h"
+#include "WebServer.h"
+#include "HttpClient.h"
+#include "HttpHelper.h"
 #include "UnitTest/UnitTest.h"
 
 using namespace std;

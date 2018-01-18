@@ -29,18 +29,22 @@ HttpClient::~HttpClient()
 void HttpClient::openSocket(string host, int port)
 {
     SOCKADDR_IN sin;
-    struct hostent* hostinfo = gethostbyname(host.c_str());
+	int status;
+	struct addrinfo hints, *res;
 
-    if(hostinfo==nullptr)
-    {
-        cout << "Error, unknown host " << host << endl;
-        exit(-1);
-    }
+	memset(&hints, 0, sizeof(hints));
+	if ((status = getaddrinfo(host.c_str(), nullptr, &hints, &res)) != 0)
+	{
+		cout << "Error " << status << " : " << gai_strerror(status) << endl;
+		exit(-1);
+	}
 
     m_Sock = socket(AF_INET,SOCK_STREAM,0);
-    sin.sin_addr = *(IN_ADDR *) hostinfo->h_addr;
+	auto sockaddr_ipv4 = reinterpret_cast<sockaddr_in*>(res->ai_addr);
+	sin.sin_addr = sockaddr_ipv4->sin_addr;
     sin.sin_family = AF_INET;
     sin.sin_port = htons(port);
+	freeaddrinfo(res);
 
     if(connect(m_Sock, (SOCKADDR *)&sin, sizeof(sin)) == SOCKET_ERROR)
     {
@@ -75,7 +79,11 @@ bool HttpClient::SendRequest(string method, string host, int port, string path, 
     unsigned int sendSum = 0;
     int sendByte = -1;
 
-    strcpy(charBuffer, stringBuffer.c_str());
+	#ifdef __MINGW32__
+		strcpy(charBuffer, stringBuffer.c_str());
+	#else
+		strcpy_s(charBuffer, stringBuffer.size()+1, stringBuffer.c_str());
+	#endif
 
     while(sendSum < sendMax)
     {

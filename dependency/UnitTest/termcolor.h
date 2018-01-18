@@ -26,7 +26,9 @@
 #endif
 
 #ifndef _fileno
+#ifndef _MSC_VER
     #define _fileno(F) ((F)->_file)
+#endif
 #endif
 
 // This headers provides the `isatty()`/`fileno()` functions,
@@ -564,7 +566,7 @@ namespace termcolor
         #if defined(OS_MACOS) || defined(OS_LINUX)
             return ::isatty(fileno(std_stream));
         #elif defined(OS_WINDOWS)
-            return ::_isatty(_fileno(std_stream));
+            return ::_isatty(_fileno(std_stream))!=0;
         #endif
         }
 

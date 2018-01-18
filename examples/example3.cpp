@@ -27,7 +27,7 @@ class Book
         int Stock;
 };
 
-class JsonController : public MongooseCpp::TypeController<int, Book>
+class JsonController : public MongooseCpp::TypeController<unsigned int, Book>
 {
     public:
         JsonController()
@@ -70,7 +70,7 @@ class JsonController : public MongooseCpp::TypeController<int, Book>
             return true;
         };
 
-        bool Get(const int& Id, Book& book, MongooseCpp::Response& response)
+        bool Get(const unsigned int& Id, Book& book, MongooseCpp::Response& response)
         {
             if(Id>=m_Datas.size())
             {
@@ -100,7 +100,7 @@ class JsonController : public MongooseCpp::TypeController<int, Book>
             return true;
         };
 
-        bool Put(const int& Id, const Book& book, MongooseCpp::Response& response)
+        bool Put(const unsigned int& Id, const Book& book, MongooseCpp::Response& response)
         {
             if(Id>=m_Datas.size())
             {
@@ -114,7 +114,7 @@ class JsonController : public MongooseCpp::TypeController<int, Book>
             return true;
         };
 
-        bool Delete(const int& Id, MongooseCpp::Response& response)
+        bool Delete(const unsigned int& Id, MongooseCpp::Response& response)
         {
             if(Id>=m_Datas.size())
             {
@@ -140,10 +140,10 @@ class JsonController : public MongooseCpp::TypeController<int, Book>
             return oss.str();
         };
 
-        int ToId(std::string value)
+		unsigned int ToId(std::string value)
         {
             istringstream iss(value);
-            int id;
+			unsigned int id;
             iss >> id;
             return id;
         };

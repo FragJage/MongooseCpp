@@ -14,8 +14,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-DWIN32" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -29,8 +27,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="/DDEBUG" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 			</Target>
 			<Target title="Release-Lin">
@@ -38,10 +34,6 @@
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Compiler>
-					<Add directory="src" />
-					<Add directory="test" />
-				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
@@ -56,8 +48,6 @@
 					<Add option="-g" />
 					<Add option="-DDEBUG" />
 					<Add option="-DWIN32" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 				<Linker>
 					<Add library="ws2_32" />
@@ -67,21 +57,21 @@
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-DMG_ENABLE_CALLBACK_USERDATA" />
-			<Add directory="dependency" />
-			<Add directory="src" />
+			<Add directory="../../dependency" />
+			<Add directory="../../src" />
 		</Compiler>
-		<Unit filename="dependency/mongoose/mongoose.c">
+		<Unit filename="../../dependency/mongoose/mongoose.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="dependency/mongoose/mongoose.h" />
-		<Unit filename="examples/example1.cpp" />
-		<Unit filename="src/IWebController.h" />
-		<Unit filename="src/Request.cpp" />
-		<Unit filename="src/Request.h" />
-		<Unit filename="src/Response.cpp" />
-		<Unit filename="src/Response.h" />
-		<Unit filename="src/WebServer.cpp" />
-		<Unit filename="src/WebServer.h" />
+		<Unit filename="../../dependency/mongoose/mongoose.h" />
+		<Unit filename="../../examples/example1.cpp" />
+		<Unit filename="../../src/IWebController.h" />
+		<Unit filename="../../src/Request.cpp" />
+		<Unit filename="../../src/Request.h" />
+		<Unit filename="../../src/Response.cpp" />
+		<Unit filename="../../src/Response.h" />
+		<Unit filename="../../src/WebServer.cpp" />
+		<Unit filename="../../src/WebServer.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

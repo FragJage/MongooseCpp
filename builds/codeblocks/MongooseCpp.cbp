@@ -2,20 +2,19 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Example2" />
+		<Option title="MongooseCpp" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release-Win">
 				<Option platforms="Windows;" />
 				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../.." />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-DWIN32" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -24,24 +23,20 @@
 			</Target>
 			<Target title="Debug">
 				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../.." />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="/DDEBUG" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 			</Target>
 			<Target title="Release-Lin">
 				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../.." />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Compiler>
-					<Add directory="src" />
-					<Add directory="test" />
-				</Compiler>
 				<Linker>
 					<Add option="-s" />
 				</Linker>
@@ -49,6 +44,7 @@
 			<Target title="Debug-Win">
 				<Option platforms="Windows;" />
 				<Option output="bin/test" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../.." />
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -56,8 +52,6 @@
 					<Add option="-g" />
 					<Add option="-DDEBUG" />
 					<Add option="-DWIN32" />
-					<Add directory="src" />
-					<Add directory="test" />
 				</Compiler>
 				<Linker>
 					<Add library="ws2_32" />
@@ -65,24 +59,46 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add option="-DMG_ENABLE_CALLBACK_USERDATA" />
-			<Add directory="dependency" />
-			<Add directory="src" />
+			<Add directory="../../dependency" />
+			<Add directory="../../src" />
 		</Compiler>
-		<Unit filename="dependency/mongoose/mongoose.c">
+		<Unit filename="../../dependency/UnitTest/UnitTest.cpp" />
+		<Unit filename="../../dependency/UnitTest/UnitTest.h" />
+		<Unit filename="../../dependency/UnitTest/termcolor.h" />
+		<Unit filename="../../dependency/mongoose/mongoose.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="dependency/mongoose/mongoose.h" />
-		<Unit filename="examples/example2.cpp" />
-		<Unit filename="src/IWebController.h" />
-		<Unit filename="src/PageController.cpp" />
-		<Unit filename="src/Request.cpp" />
-		<Unit filename="src/Request.h" />
-		<Unit filename="src/Response.cpp" />
-		<Unit filename="src/Response.h" />
-		<Unit filename="src/WebServer.cpp" />
-		<Unit filename="src/WebServer.h" />
+		<Unit filename="../../dependency/mongoose/mongoose.h" />
+		<Unit filename="../../src/ApiController.cpp" />
+		<Unit filename="../../src/ApiController.h" />
+		<Unit filename="../../src/IWebController.h" />
+		<Unit filename="../../src/PageController.cpp" />
+		<Unit filename="../../src/PageController.h" />
+		<Unit filename="../../src/Request.cpp" />
+		<Unit filename="../../src/Request.h" />
+		<Unit filename="../../src/Response.cpp" />
+		<Unit filename="../../src/Response.h" />
+		<Unit filename="../../src/TypeController.h" />
+		<Unit filename="../../src/WebServer.cpp" />
+		<Unit filename="../../src/WebServer.h" />
+		<Unit filename="../../test/HttpClient.cpp" />
+		<Unit filename="../../test/HttpClient.h" />
+		<Unit filename="../../test/HttpHelper.cpp" />
+		<Unit filename="../../test/HttpHelper.h" />
+		<Unit filename="../../test/TestApiController.cpp" />
+		<Unit filename="../../test/TestApiController.h" />
+		<Unit filename="../../test/TestBaseController.cpp" />
+		<Unit filename="../../test/TestBaseController.h" />
+		<Unit filename="../../test/TestPageController.cpp" />
+		<Unit filename="../../test/TestPageController.h" />
+		<Unit filename="../../test/TestTypeController.cpp" />
+		<Unit filename="../../test/TestTypeController.h" />
+		<Unit filename="../../test/TestWebServer.cpp" />
+		<Unit filename="../../test/TestWebServer.h" />
+		<Unit filename="../../test/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

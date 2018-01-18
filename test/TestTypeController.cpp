@@ -58,7 +58,7 @@ bool JsonController::GetList(MongooseCpp::Request& request, MongooseCpp::Respons
     return true;
 }
 
-bool JsonController::Get(const int& Id, Book& book, MongooseCpp::Response& response)
+bool JsonController::Get(const unsigned int& Id, Book& book, MongooseCpp::Response& response)
 {
     if(Id==999)
     {
@@ -94,7 +94,7 @@ bool JsonController::Post(const Book& book, MongooseCpp::Response& response)
     return true;
 }
 
-bool JsonController::Put(const int& Id, const Book& book, MongooseCpp::Response& response)
+bool JsonController::Put(const unsigned int& Id, const Book& book, MongooseCpp::Response& response)
 {
     if(Id>=m_Datas.size())
     {
@@ -108,7 +108,7 @@ bool JsonController::Put(const int& Id, const Book& book, MongooseCpp::Response&
     return true;
 }
 
-bool JsonController::Delete(const int& Id, MongooseCpp::Response& response)
+bool JsonController::Delete(const unsigned int& Id, MongooseCpp::Response& response)
 {
     if(Id>=m_Datas.size())
     {
@@ -134,10 +134,10 @@ string JsonController::ToString(const Book& book)
     return oss.str();
 }
 
-int JsonController::ToId(string value)
+unsigned int JsonController::ToId(string value)
 {
     istringstream iss(value);
-    int id;
+	unsigned int id;
     iss >> id;
     return id;
 }

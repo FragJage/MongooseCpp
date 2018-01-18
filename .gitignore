@@ -1,5 +1,9 @@
 obj
-/bin
-/*.out
-/*.layout
-/*.depend
+bin
+*.out
+*.layout
+*.depend
+*.dir
+.vs
+*.VC.*
+*.filter
