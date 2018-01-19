@@ -242,14 +242,12 @@ bool TestTypeController::CreateObject()
     myBook.Author = "Gustave Flaubert";
     myBook.Stock = 12;
     body = myJsonCtrl.ToString(myBook);
-cout << "SEND1 " << body << endl;
     client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("Book ref 123654 already exist"==client.GetBody());
 
     myBook.Ref = 123655;
     body = myJsonCtrl.ToString(myBook);
-cout << "SEND2 " << body << endl;
 	client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("New Id:5"==client.GetBody());
@@ -278,7 +276,6 @@ bool TestTypeController::ModifyObject()
 
     readedBook.Stock = 71;
     body = myJsonCtrl.ToString(readedBook);
-cout << "SENDA " << body << endl;
 
 	client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));

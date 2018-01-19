@@ -120,10 +120,13 @@ string HttpClient::ReceiveResponse()
     while(WaitingResponse(100))
     {
         recvByte = recv(m_Sock, recvBuffer, BUFLEN-1, 0);
+cout << "RECV BYTE " << recvByte << endl;
         if(recvByte>0)
         {
             recvBuffer[recvByte] = '\0';
+cout << "BUFFER ##" << recvBuffer << "##" << endl;
             stringBuffer.append(recvBuffer);
+cout << "STRING ##" << stringBuffer << "##" << endl;
         }
         if(recvByte==0) break;
      }
