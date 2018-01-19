@@ -149,6 +149,8 @@ void JsonController::ToObject(string value, Book& book)
 {
     size_t posBegin, posEnd;
 
+cout << "###" << value << "###" << endl;
+
     posBegin = value.find("Ref:")+4;
     posEnd = value.find(",", posBegin);
     istringstream issId(value.substr(posBegin, posEnd-posBegin));
