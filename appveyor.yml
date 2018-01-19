@@ -1,0 +1,11 @@
+branches:
+  only:
+    - master
+
+image: Visual Studio 2015
+
+platform: Win32
+configuration: Release
+
+build:
+  project: builds\msvc\MongooseCpp.sln
