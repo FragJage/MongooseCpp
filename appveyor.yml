@@ -9,3 +9,6 @@ configuration: Release
 
 build:
   project: builds\msvc\MongooseCpp.sln
+  
+after_build:
+ - builds\msvc\bin\unittest.exe
