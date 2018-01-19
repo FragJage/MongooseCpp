@@ -71,7 +71,8 @@ bool HttpClient::SendRequest(string method, string host, int port, string path, 
         request << "Content-Length: " << body.size() << "\r\n";
         request << "\r\n";
         request << body;
-    }
+		request << "\r\n";
+	}
 
     string stringBuffer = request.str();
     char* charBuffer = new char [stringBuffer.size()+1];

@@ -134,7 +134,23 @@ string JsonController::ToString(const Book& book)
     oss << "Author:\"" << book.Author << "\"," << endl;
     oss << "Stock:" << book.Stock << endl;
     oss << "}" << endl;
-    return oss.str();
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	oss << "azertyuiopqsdfghjklmwxcvbn" << endl;
+	return oss.str();
 }
 
 unsigned int JsonController::ToId(string value)
@@ -148,8 +164,6 @@ unsigned int JsonController::ToId(string value)
 void JsonController::ToObject(string value, Book& book)
 {
     size_t posBegin, posEnd;
-
-cout << "###" << value << "###" << endl;
 
     posBegin = value.find("Ref:")+4;
     posEnd = value.find(",", posBegin);
@@ -228,13 +242,15 @@ bool TestTypeController::CreateObject()
     myBook.Author = "Gustave Flaubert";
     myBook.Stock = 12;
     body = myJsonCtrl.ToString(myBook);
+cout << "SEND1 " << body << endl;
     client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("Book ref 123654 already exist"==client.GetBody());
 
     myBook.Ref = 123655;
     body = myJsonCtrl.ToString(myBook);
-    client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
+cout << "SEND2 " << body << endl;
+	client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("New Id:5"==client.GetBody());
 
@@ -262,8 +278,9 @@ bool TestTypeController::ModifyObject()
 
     readedBook.Stock = 71;
     body = myJsonCtrl.ToString(readedBook);
+cout << "SENDA " << body << endl;
 
-    client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books", body);
+	client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("500"==client.GetStatus());
     assert("Id parameter is required"==client.GetBody());

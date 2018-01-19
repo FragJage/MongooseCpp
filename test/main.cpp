@@ -8,10 +8,6 @@
 
 using namespace std;
 
-//TO DO
-//Write ReadMe.md
-//Add Travis file
-
 int main(void)
 {
     int ret = 0;
@@ -36,17 +32,4 @@ int main(void)
         if(!unitTest.run()) ret = 1;
 
     return ret;
-
-    /*
-    MongooseCpp::WebServer server;
-    JsonController myJsonCtrl;
-
-    server.AddRoute("/api/v1/books/[Id]", &myJsonCtrl);
-    server.Start();
-    while(true)
-        server.Poll();
-
-    server.Stop();
-    return 0;
-    */
 }
