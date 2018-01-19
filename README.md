@@ -3,24 +3,26 @@
 
 MongooseCpp
 ===========
-Mongoose c++ library embeded web server
+Mongoose c++ embeded web server cross-platform.
 
 Introduction
 ============
-Embeded web server write in c++ and based on Mongoose.
+Embedded web server write in c++ and based on Mongoose. Build on Travis and Appveyor factories. A good solution to add an user interface for your programs.
 
 Features
 ========
  - Web server with controller and configurable route.
  - Page controller to display statics pages.
  - Api controller to manage GET, POST, PUT and DELETE methods.
- - Type controler to manage a web api with a object.
+ - Type controler to manage a web api with an object.
  - Interface to create any controllers.
 
 How to use
 ==========
- Add src and dependency/mongoose folder into your project and see examples folder.
- Add define MG_ENABLE_CALLBACK_USERDATA.
+ Add src and dependency/mongoose folders into your project and see examples folder.
+ 
+ To build, add define MG_ENABLE_CALLBACK_USERDATA. You can see CMakeLists.txt, Code::Blocks or MSVC projects in builds folder.
+ 
  For example :
     
 		int main()
@@ -45,18 +47,6 @@ How to use
 			return 0;
 		}
 
-Portability
-===========
-Unit tests passed successfully on :
- - Windows 10 (CPU Intel Core i7)
- - (TO DO) Linux Ubuntu (CPU Intel Celeron)
- - (TO DO) Linux Ubuntu (CPU Intel Atom)
- - (TO DO) Linux Raspian on Raspberry Pi (CPU ARM)
- - (TO DO) Linux FunPlug on NAS DNS-320 (CPU ARM)
-
-For more informations
-=====================
-(TO DO) See documentation in doc/html/index.html
 
 Licence
 =======
