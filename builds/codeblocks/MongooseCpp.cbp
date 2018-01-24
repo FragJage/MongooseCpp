@@ -68,7 +68,6 @@
 			<Add option="-Wunreachable-code" />
 			<Add option="-Wmissing-declarations" />
 			<Add option="-Wmissing-include-dirs" />
-			<Add option="-Weffc++" />
 			<Add option="-Wmain" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
