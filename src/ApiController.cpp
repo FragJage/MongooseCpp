@@ -28,8 +28,11 @@ bool ApiController::Process(Request& request, Response& response)
     }
 }
 
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is virtual functions
+#endif
+
 bool ApiController::Get(Request& request, Response& response)
 {
     response.SetStatut(405);
@@ -53,6 +56,8 @@ bool ApiController::Delete(Request& request, Response& response)
     response.SetStatut(405);
     return true;
 }
-#pragma GCC diagnostic pop
 
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 }

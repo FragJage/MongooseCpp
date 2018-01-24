@@ -8,8 +8,11 @@ using namespace std;
 ApiController::ApiController() {}
 ApiController::~ApiController() {}
 
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is virtual functions
+#endif
+
 bool ApiController::Get(MongooseCpp::Request& request, MongooseCpp::Response& response)
 {
     response.SetContent("mthGET");
@@ -33,7 +36,10 @@ bool ApiController::Delete(MongooseCpp::Request& request, MongooseCpp::Response&
     response.SetContent("mthDELETE");
     return true;
 }
+
+#ifndef _MSC_VER
 #pragma GCC diagnostic pop
+#endif
 
 TestApiController::TestApiController() : TestClass("TestApiController", this), server(8002)
 {

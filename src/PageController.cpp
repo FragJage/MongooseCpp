@@ -11,8 +11,11 @@ PageController::~PageController()
 {
 }
 
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is a virtual function
+#endif
+
 bool PageController::Process(Request& request, Response& response)
 {
     static struct mg_serve_http_opts s_http_server_opts;
@@ -27,6 +30,8 @@ bool PageController::Process(Request& request, Response& response)
     mg_serve_http(nc, msg, s_http_server_opts);
     return true;
 }
-#pragma GCC diagnostic pop
 
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 }

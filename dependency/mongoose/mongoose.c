@@ -1,8 +1,13 @@
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4267)
+#else
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wshadow"
 #pragma GCC diagnostic ignored "-Wlong-long"
 #pragma GCC diagnostic ignored "-Wformat="
+#endif
 
 #include "mongoose.h"
 #ifdef MG_MODULE_LINES
@@ -16437,4 +16442,8 @@ unsigned int sleep(unsigned int seconds) {
 
 #endif /* _WIN32 */
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#else
 #pragma GCC diagnostic pop
+#endif

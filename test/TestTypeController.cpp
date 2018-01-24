@@ -37,8 +37,11 @@ JsonController::~JsonController()
 {
 }
 
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"                 //This is virtual functions
+#endif
+
 bool JsonController::GetList(MongooseCpp::Request& request, MongooseCpp::Response& response)
 {
     vector<Book>::const_iterator it;
@@ -59,7 +62,10 @@ bool JsonController::GetList(MongooseCpp::Request& request, MongooseCpp::Respons
     response.SetContent(oss.str());
     return true;
 }
+
+#ifndef _MSC_VER
 #pragma GCC diagnostic pop
+#endif
 
 bool JsonController::Get(const unsigned int& Id, Book& book, MongooseCpp::Response& response)
 {
