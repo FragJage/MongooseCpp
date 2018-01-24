@@ -117,6 +117,7 @@ string HttpClient::ReceiveResponse()
     int recvByte;
     string stringBuffer = "";
 
+    m_Page = "";
     while(WaitingResponse(100))
     {
         recvByte = recv(m_Sock, recvBuffer, BUFLEN-1, 0);

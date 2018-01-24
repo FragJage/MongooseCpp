@@ -263,30 +263,27 @@ cout << "TA" << endl;
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/2");
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("200"==client.GetStatus());
+cout << "###" << client.GetBody() << "###" << endl;
     myJsonCtrl.ToObject(client.GetBody(), readedBook);
 
 cout << "TB" << endl;
     readedBook.Stock = 71;
     body = myJsonCtrl.ToString(readedBook);
 
-cout << "TC" << endl;
 	client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("500"==client.GetStatus());
     assert("Id parameter is required"==client.GetBody());
 
-cout << "TD" << endl;
     client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books/9", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("404"==client.GetStatus());
     assert("Book not found"==client.GetBody());
 
-cout << "TE" << endl;
     client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books/2", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("200"==client.GetStatus());
     assert("OK"==client.GetBody());
-cout << "TF" << endl;
 
     return true;
 }
