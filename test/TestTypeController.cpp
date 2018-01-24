@@ -227,8 +227,8 @@ bool TestTypeController::CreateObject()
     Book readedBook;
     string body;
 
-cout << "T1" << endl;
-    myBook.Ref = 123654;
+
+	myBook.Ref = 123654;
     myBook.Title = "Madame Bovary";
     myBook.Author = "Gustave Flaubert";
     myBook.Stock = 12;
@@ -237,21 +237,16 @@ cout << "T1" << endl;
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("Book ref 123654 already exist"==client.GetBody());
 
-cout << "T2" << endl;
     myBook.Ref = 123655;
     body = myJsonCtrl.ToString(myBook);
 	client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("New Id:5"==client.GetBody());
 
-cout << "T3" << endl;
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/5");
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("200"==client.GetStatus());
-cout << "T31" << endl;
-cout << "###" << client.GetBody() << "###" << endl;
     myJsonCtrl.ToObject(client.GetBody(), readedBook);
-cout << "T32" << endl;
     assert(myBook.Ref==readedBook.Ref);
     assert(myBook.Title==readedBook.Title);
     assert(myBook.Author==readedBook.Author);
@@ -265,14 +260,12 @@ bool TestTypeController::ModifyObject()
     Book readedBook;
     string body;
 
-cout << "TA" << endl;
-    client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/2");
+
+	client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/2");
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("200"==client.GetStatus());
-cout << "###" << client.GetBody() << "###" << endl;
     myJsonCtrl.ToObject(client.GetBody(), readedBook);
 
-cout << "TB" << endl;
     readedBook.Stock = 71;
     body = myJsonCtrl.ToString(readedBook);
 

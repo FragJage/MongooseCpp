@@ -103,13 +103,11 @@ bool HttpClient::WaitingResponse(unsigned int milliTimeout)
      timeout.tv_sec = 0;
      timeout.tv_usec = milliTimeout;
 	 
-cout << "WAIT...";
      fd_set readfs;
      FD_ZERO(&readfs);
      FD_SET(m_Sock,&readfs);
      int nb = select(m_Sock+1, &readfs, nullptr, nullptr, &timeout);
 
-cout << nb << endl;
 	 return (nb>0);
 }
 
@@ -120,17 +118,13 @@ string HttpClient::ReceiveResponse()
     string stringBuffer = "";
 
     m_Page = "";
-cout << "RECV..." << endl;
     while(WaitingResponse(100))
     {
         recvByte = recv(m_Sock, recvBuffer, BUFLEN-1, 0);
-cout << "RECV BYTE " << recvByte << endl;
         if(recvByte>0)
         {
             recvBuffer[recvByte] = '\0';
-cout << "BUFFER ##" << recvBuffer << "##" << endl;
             stringBuffer.append(recvBuffer);
-cout << "STRING ##" << stringBuffer << "##" << endl;
         }
         if(recvByte==0) break;
      }
