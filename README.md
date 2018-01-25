@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/FragJage/MongooseCpp.svg?branch=master)](https://travis-ci.org/FragJage/MongooseCpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/yr84g6ic47jix751?svg=true)](https://ci.appveyor.com/project/FragJage/MongooseCpp)
+[![Coverity Scan Build](https://scan.coverity.com/projects/14945/badge.svg)](https://scan.coverity.com/projects/fragjage-mongoosecpp)
 
 MongooseCpp
 ===========
