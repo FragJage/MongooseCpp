@@ -39,11 +39,17 @@ void HttpClient::openSocket(string host, int port)
 		exit(-1);
 	}
 
-    m_Sock = socket(AF_INET,SOCK_STREAM,0);
+    if((m_Sock = socket(AF_INET,SOCK_STREAM,0)) == INVALID_SOCKET)
+    {
+		cout << "Error " << errno << " : Unable to create the socket" << endl;
+		exit(-1);
+    }
+
 	auto sockaddr_ipv4 = reinterpret_cast<sockaddr_in*>(res->ai_addr);
 	sin.sin_addr = sockaddr_ipv4->sin_addr;
     sin.sin_family = AF_INET;
     sin.sin_port = htons(port);
+    memset(&sin.sin_zero, 0, sizeof(sin.sin_zero));
 	freeaddrinfo(res);
 
     if(connect(m_Sock, (SOCKADDR *)&sin, sizeof(sin)) == SOCKET_ERROR)
@@ -102,7 +108,7 @@ bool HttpClient::WaitingResponse(unsigned int milliTimeout)
      struct timeval timeout;
      timeout.tv_sec = 0;
      timeout.tv_usec = milliTimeout;
-	 
+
      fd_set readfs;
      FD_ZERO(&readfs);
      FD_SET(m_Sock,&readfs);
@@ -149,8 +155,11 @@ string HttpClient::GetBody()
     size_t lenPos = m_Page.substr(0, bodyPos).find("Content-Length:");
     if(lenPos == string::npos) return "";
 
+    size_t lenEnd =  m_Page.find("\r\n", lenPos+15);
+    if(lenEnd == string::npos) return "";
+
     int len;
-    istringstream iss(m_Page.substr(lenPos+15, m_Page.find("\r\n", lenPos, bodyPos)));
+    istringstream iss(m_Page.substr(lenPos+15, lenEnd));
     iss >> len;
 
     return m_Page.substr(m_Page.find("\r\n\r\n")+4, len);

@@ -19,7 +19,7 @@ using namespace MongooseCpp;
 class Book
 {
     public:
-        Book() {};
+        Book() : Book(0, "", "", 0) {};
         Book(int _ref, std::string _title, std::string _author, int _stock) : Ref(_ref), Title(_title), Author(_author), Stock(_stock) {};
         int Ref;
         std::string Title;

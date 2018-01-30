@@ -39,9 +39,6 @@ bool BaseController::Process(MongooseCpp::Request& request, MongooseCpp::Respons
         response.SetContent(content);
         return true;
     }
-
-    response.SetStatut(404);
-    return true;
 }
 
 TestBaseController::TestBaseController() : TestClass("BaseController", this)
