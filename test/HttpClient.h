@@ -18,7 +18,9 @@
     #include <unistd.h> /* close */
     #include <netdb.h> /* gethostbyname */
     #define SOCKET_ERROR -1
-    #define INVALID_SOCKET -1
+    #ifndef INVALID_SOCKET
+        #define INVALID_SOCKET -1
+    #endif
     #ifndef closesocket
         #define closesocket(s) close(s)
     #endif
