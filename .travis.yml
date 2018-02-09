@@ -28,15 +28,10 @@ install:
 script:
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then cmake . -G"Unix Makefiles" -DCMAKE_CXX_COMPILER=$(which $COMPILER); fi
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then make; fi
-  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ls ./src; fi
-  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ls ./test/bin; fi
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ./test/bin/unittest; fi
-  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ls ./test/bin; fi
 
 after_success:
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then valgrind --error-exitcode=1 --leak-check=full ./test/bin/unittest; fi
-  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ls ./test/bin; fi
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then sudo pip install -U "cpp-coveralls"; fi
-  - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then ls ./test/bin; fi
   - if [ "$COVERITY_SCAN_BRANCH" != 1 ]; then coveralls --include src --gcov-options '\-lp' --gcov 'gcov-4.9'; fi
   
