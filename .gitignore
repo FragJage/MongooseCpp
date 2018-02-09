@@ -7,3 +7,4 @@ bin
 .vs
 *.VC.*
 *.filter
+*.user
