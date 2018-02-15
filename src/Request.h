@@ -15,18 +15,18 @@ class Request
         Request();
         Request(struct mg_connection* conn, struct http_message* httpMsg);
         Request(const Request& resquest);
-        Request& operator=(Request other);
+        Request& operator=(Request& other);
         ~Request();
 
         std::string GetUri();
         std::string GetBody();
         std::string GetUriPart(unsigned int part);
         HttpMethod GetMethod();
-        bool ExistsParameter(std::string key);
-        std::string GetParameter(std::string key);
-        std::string GetQueryParameter(std::string key);
-        std::string GetBodyParameter(std::string key);
-        template <typename T> T GetParameter(std::string key)
+        bool ExistsParameter(const std::string& key);
+        std::string GetParameter(const std::string& key);
+        std::string GetQueryParameter(const std::string& key);
+        std::string GetBodyParameter(const std::string& key);
+        template <typename T> T GetParameter(const std::string& key)
         {
             std::string value = GetParameter(key);
             std::istringstream iss(value);

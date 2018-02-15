@@ -31,7 +31,7 @@ void WebServer::StaticEventHandler(struct mg_connection* nc, int ev, void* ev_da
 {
     if(ev!=MG_EV_HTTP_REQUEST) return;
 
-    WebServer* server = (WebServer*) user_data;
+    WebServer* server = static_cast<WebServer*>(user_data);
     if(server==nullptr) return;
 
     struct http_message* msg = (struct http_message*) ev_data;

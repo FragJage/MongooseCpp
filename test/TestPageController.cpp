@@ -16,6 +16,7 @@ TestPageController::~TestPageController()
 
 bool TestPageController::WithDirListing()
 {
+    string result;
     MongooseCpp::PageController pageCtrl("./test", true);
     MongooseCpp::WebServer server(8001);
     HttpClient client;
@@ -26,7 +27,8 @@ bool TestPageController::WithDirListing()
 
     client.SendRequest("GET", "127.0.0.1", 8001, "/pages/");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
+    result = client.GetStatus();
+    assert("200"==result);
 
     server.Stop();
     return true;
@@ -34,6 +36,7 @@ bool TestPageController::WithDirListing()
 
 bool TestPageController::WithoutDirListing()
 {
+    string result;
     MongooseCpp::PageController pageCtrl("./test", false);
     MongooseCpp::WebServer server(8001);
     HttpClient client;
@@ -44,7 +47,8 @@ bool TestPageController::WithoutDirListing()
 
     client.SendRequest("GET", "127.0.0.1", 8001, "/pages/");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("403"==client.GetStatus());
+    result = client.GetStatus();
+    assert("403"==result);
 
     server.Stop();
     return true;
@@ -52,6 +56,7 @@ bool TestPageController::WithoutDirListing()
 
 bool TestPageController::SimplePage()
 {
+    string result;
     MongooseCpp::PageController pageCtrl("./test", false);
     MongooseCpp::WebServer server(8001);
     HttpClient client;
@@ -62,8 +67,10 @@ bool TestPageController::SimplePage()
 
     client.SendRequest("GET", "127.0.0.1", 8001, "/pages/test.html");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
-    assert("<H1>Test</H1>"==client.GetBody());
+    result = client.GetStatus();
+    assert("200"==result);
+    result = client.GetBody();
+    assert("<H1>Test</H1>"==result);
 
     server.Stop();
     return true;
@@ -71,6 +78,7 @@ bool TestPageController::SimplePage()
 
 bool TestPageController::Error404()
 {
+    string result;
     MongooseCpp::PageController pageCtrl("./test", false);
     MongooseCpp::WebServer server(8001);
     HttpClient client;
@@ -81,7 +89,8 @@ bool TestPageController::Error404()
 
     client.SendRequest("GET", "127.0.0.1", 8001, "/pages/test404.html");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
+    result = client.GetStatus();
+    assert("404"==result);
 
     server.Stop();
     return true;

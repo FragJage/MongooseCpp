@@ -36,7 +36,7 @@ class HttpClient
         HttpClient();
         ~HttpClient();
 
-        bool SendRequest(std::string method, std::string host, int port, std::string path, std::string body="");
+        bool SendRequest(const std::string& method, const std::string& host, int port, const std::string& path, const std::string& body="");
         bool WaitingResponse(unsigned int millisecond=100);
         std::string ReceiveResponse();
         std::string GetStatus();

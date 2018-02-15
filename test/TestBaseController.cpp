@@ -58,43 +58,56 @@ TestBaseController::~TestBaseController()
 
 bool TestBaseController::ReadHttpMethod()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8000, "/base/method");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthGET"==client.GetBody());
+    result = client.GetBody();
+    assert("mthGET"==result);
 
     client.SendRequest("POST", "127.0.0.1", 8000, "/base/method", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthPOST"==client.GetBody());
+    result = client.GetBody();
+    assert("mthPOST"==result);
 
     client.SendRequest("PATCH", "127.0.0.1", 8000, "/base/method", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthPATCH"==client.GetBody());
+    result = client.GetBody();
+    assert("mthPATCH"==result);
 
     client.SendRequest("HEAD", "127.0.0.1", 8000, "/base/method");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthHEAD"==client.GetBody());
+    result = client.GetBody();
+    assert("mthHEAD"==result);
 
     return true;
 }
 
 bool TestBaseController::ReadParameters()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8000, "/base/modules");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("modules"==client.GetBody());
+    result = client.GetBody();
+    assert("modules"==result);
 
     client.SendRequest("GET", "127.0.0.1", 8000, "/base/devices/5");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("devices,id=5"==client.GetBody());
+    result = client.GetBody();
+    assert("devices,id=5"==result);
 
     return true;
 }
 
 bool TestBaseController::Error404()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8000, "/baseerr");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
+    result = client.GetStatus();
+    assert("404"==result);
 
     return true;
 }

@@ -10,12 +10,8 @@
 using namespace std;
 
 
-Book::Book(int _ref, string _title, string _author, int _stock)
+Book::Book(int _ref, string _title, string _author, int _stock) : Ref(_ref), Title(_title), Author(_author), Stock(_stock)
 {
-    Ref = _ref;
-    Title = _title;
-    Author = _author;
-    Stock = _stock;
 }
 
 JsonController::JsonController()
@@ -193,30 +189,41 @@ TestTypeController::~TestTypeController()
 
 bool TestTypeController::GetList()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
-    assert("{ Books : ["==client.GetBody().substr(0,11));
+    result = client.GetStatus();
+    assert("200"==result);
+    result = client.GetBody();
+    assert("{ Books : ["==result.substr(0,11));
     return true;
 }
 
 bool TestTypeController::GetObject()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/1");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
-    string body = client.GetBody();
-    assert("Ref:123342"==body.substr(body.find("Ref:"), 10));
+    result = client.GetStatus();
+    assert("200"==result);
+    result = client.GetBody();
+    assert("Ref:123342"==result.substr(result.find("Ref:"), 10));
 
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/8");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
-    assert("Book not found"==client.GetBody());
+    result = client.GetStatus();
+    assert("404"==result);
+    result = client.GetBody();
+    assert("Book not found"==result);
 
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/999");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("403"==client.GetStatus());
-    assert("Id 999 unauthorized"==client.GetBody());
+    result = client.GetStatus();
+    assert("403"==result);
+    result = client.GetBody();
+    assert("Id 999 unauthorized"==result);
 
     return true;
 }
@@ -225,27 +232,30 @@ bool TestTypeController::CreateObject()
 {
     Book myBook;
     Book readedBook;
-    string body;
+    string result;
 
 
 	myBook.Ref = 123654;
     myBook.Title = "Madame Bovary";
     myBook.Author = "Gustave Flaubert";
     myBook.Stock = 12;
-    body = myJsonCtrl.ToString(myBook);
-    client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
+    result = myJsonCtrl.ToString(myBook);
+    client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", result);
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("Book ref 123654 already exist"==client.GetBody());
+    result = client.GetBody();
+    assert("Book ref 123654 already exist"==result);
 
     myBook.Ref = 123655;
-    body = myJsonCtrl.ToString(myBook);
-	client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", body);
+    result = myJsonCtrl.ToString(myBook);
+	client.SendRequest("POST", "127.0.0.1", 8003, "/api/v1/books", result);
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("New Id:5"==client.GetBody());
+    result = client.GetBody();
+    assert("New Id:5"==result);
 
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/5");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
+    result = client.GetStatus();
+    assert("200"==result);
     myJsonCtrl.ToObject(client.GetBody(), readedBook);
     assert(myBook.Ref==readedBook.Ref);
     assert(myBook.Title==readedBook.Title);
@@ -258,12 +268,14 @@ bool TestTypeController::CreateObject()
 bool TestTypeController::ModifyObject()
 {
     Book readedBook;
+    string result;
     string body;
 
 
 	client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/2");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
+    result = client.GetStatus();
+    assert("200"==result);
     myJsonCtrl.ToObject(client.GetBody(), readedBook);
 
     readedBook.Stock = 71;
@@ -271,38 +283,51 @@ bool TestTypeController::ModifyObject()
 
 	client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books", body);
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("500"==client.GetStatus());
-    assert("Id parameter is required"==client.GetBody());
+    result = client.GetStatus();
+    assert("500"==result);
+    result = client.GetBody();
+    assert("Id parameter is required"==result);
 
     client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books/9", body);
     assert(true==HttpHelper::WaitResponse(server, client));
     assert("404"==client.GetStatus());
-    assert("Book not found"==client.GetBody());
+    result = client.GetBody();
+    assert("Book not found"==result);
 
     client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books/2", body);
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
-    assert("OK"==client.GetBody());
+    result = client.GetStatus();
+    assert("200"==result);
+    result = client.GetBody();
+    assert("OK"==result);
 
     return true;
 }
 
 bool TestTypeController::DeleteObject()
 {
+    string result;
+
     client.SendRequest("DELETE", "127.0.0.1", 8003, "/api/v1/books/7");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
-    assert("Book not found"==client.GetBody());
+    result = client.GetStatus();
+    assert("404"==result);
+    result = client.GetBody();
+    assert("Book not found"==result);
 
     client.SendRequest("DELETE", "127.0.0.1", 8003, "/api/v1/books/5");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("200"==client.GetStatus());
-    assert("OK"==client.GetBody());
+    result = client.GetStatus();
+    assert("200"==result);
+    result = client.GetBody();
+    assert("OK"==result);
 
     client.SendRequest("GET", "127.0.0.1", 8003, "/api/v1/books/5");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
-    assert("Book not found"==client.GetBody());
+    result = client.GetStatus();
+    assert("404"==result);
+    result = client.GetBody();
+    assert("Book not found"==result);
 
     return true;
 }

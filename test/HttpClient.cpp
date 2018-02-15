@@ -59,7 +59,7 @@ void HttpClient::openSocket(string host, int port)
     }
 }
 
-bool HttpClient::SendRequest(string method, string host, int port, string path, string body)
+bool HttpClient::SendRequest(const string& method, const string& host, int port, const string& path, const string& body)
 {
     openSocket(host, port);
 
@@ -120,13 +120,12 @@ bool HttpClient::WaitingResponse(unsigned int milliTimeout)
 string HttpClient::ReceiveResponse()
 {
     char recvBuffer[BUFLEN];
-    int recvByte;
     string stringBuffer = "";
 
     m_Page = "";
     while(WaitingResponse(100))
     {
-        recvByte = recv(m_Sock, recvBuffer, BUFLEN-1, 0);
+        int recvByte = recv(m_Sock, recvBuffer, BUFLEN-1, 0);
         if(recvByte>0)
         {
             recvBuffer[recvByte] = '\0';

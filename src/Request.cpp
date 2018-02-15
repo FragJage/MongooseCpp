@@ -18,7 +18,7 @@ Request::Request(const Request& resquest) : Request()
     Initialization(resquest.GetMgConnection(), resquest.GetHttpMsg());
 }
 
-Request& Request::operator=(Request resquest)
+Request& Request::operator=(Request& resquest)
 {
     Initialization(resquest.GetMgConnection(), resquest.GetHttpMsg());
     return *this;
@@ -80,7 +80,7 @@ string Request::GetUriPart(unsigned int part)
     return m_UriPart[part];
 }
 
-string Request::GetBodyParameter(string key)
+string Request::GetBodyParameter(const string& key)
 {
     char param[128];
     int len;
@@ -90,7 +90,7 @@ string Request::GetBodyParameter(string key)
     return string(param, len);
 }
 
-string Request::GetQueryParameter(string key)
+string Request::GetQueryParameter(const string& key)
 {
     char param[128];
     int len;
@@ -100,12 +100,12 @@ string Request::GetQueryParameter(string key)
     return string(param, len);
 }
 
-bool Request::ExistsParameter(string key)
+bool Request::ExistsParameter(const string& key)
 {
     return (m_Parameters.find(key) != m_Parameters.end());
 }
 
-string Request::GetParameter(string key)
+string Request::GetParameter(const string& key)
 {
     if(m_Parameters.find(key) == m_Parameters.end()) return "";
     return m_Parameters[key];

@@ -61,65 +61,85 @@ TestApiController::~TestApiController()
 
 bool TestApiController::GETmethod()
 {
+    string result;
+
     client.SendRequest("GET", "127.0.0.1", 8002, "/api/v1");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthGET"==client.GetBody());
+    result = client.GetBody();
+    assert("mthGET"==result);
 
     client.SendRequest("GET", "127.0.0.1", 8002, "/api/empty");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     return true;
 }
 
 bool TestApiController::POSTmethod()
 {
+    string result;
+
     client.SendRequest("POST", "127.0.0.1", 8002, "/api/v1", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthPOST"==client.GetBody());
+    result = client.GetBody();
+    assert("mthPOST"==result);
 
     client.SendRequest("POST", "127.0.0.1", 8002, "/api/empty", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     return true;
 }
 
 bool TestApiController::PUTmethod()
 {
+    string result;
+
     client.SendRequest("PUT", "127.0.0.1", 8002, "/api/v1", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthPUT"==client.GetBody());
+    result = client.GetBody();
+    assert("mthPUT"==result);
 
     client.SendRequest("PUT", "127.0.0.1", 8002, "/api/empty", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     return true;
 }
 
 bool TestApiController::DELETEmethod()
 {
+    string result;
+
     client.SendRequest("DELETE", "127.0.0.1", 8002, "/api/v1", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("mthDELETE"==client.GetBody());
+    result = client.GetBody();
+    assert("mthDELETE"==result);
 
     client.SendRequest("DELETE", "127.0.0.1", 8002, "/api/empty", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     return true;
 }
 
 bool TestApiController::UnknownMethod()
 {
+    string result;
+
     client.SendRequest("DELZZZ", "127.0.0.1", 8002, "/api/v1", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     client.SendRequest("DELZZZ", "127.0.0.1", 8002, "/api/empty", "BODY");
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("405"==client.GetStatus());
+    result = client.GetStatus();
+    assert("405"==result);
 
     return true;
 }
