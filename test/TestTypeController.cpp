@@ -10,7 +10,7 @@
 using namespace std;
 
 
-Book::Book(int _ref, string _title, string _author, int _stock) : Ref(_ref), Title(_title), Author(_author), Stock(_stock)
+Book::Book(int _ref, const string& _title, const string& _author, int _stock) : Ref(_ref), Title(_title), Author(_author), Stock(_stock)
 {
 }
 
@@ -290,7 +290,8 @@ bool TestTypeController::ModifyObject()
 
     client.SendRequest("PUT", "127.0.0.1", 8003, "/api/v1/books/9", body);
     assert(true==HttpHelper::WaitResponse(server, client));
-    assert("404"==client.GetStatus());
+    result = client.GetStatus();
+    assert("404"==result);
     result = client.GetBody();
     assert("Book not found"==result);
 

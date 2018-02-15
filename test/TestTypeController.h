@@ -11,7 +11,7 @@ class Book
 {
     public:
         Book() : Book(0, "", "", 0) {};
-        Book(int _ref, std::string _title, std::string _author, int _stock);
+        Book(int _ref, const std::string& _title, const std::string& _author, int _stock);
         int Ref;
         std::string Title;
         std::string Author;
