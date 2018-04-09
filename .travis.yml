@@ -3,18 +3,19 @@ compiler: gcc
 
 env:
   global:
-    - COMPILER=g++-4.9
+    - CXXCOMPILER=g++-4.9
+    - CCCOMPILER=gcc-4.9
 
 addons:
   apt:
     sources: ['ubuntu-toolchain-r-test']
-    packages: ['g++-4.9','valgrind']
+    packages: ['gcc-4.9','g++-4.9','valgrind']
     
 install:
   - sudo pip install -U "cpp-coveralls"
 
 script:
-  - cmake . -G"Unix Makefiles" -DCMAKE_CXX_COMPILER=$(which $COMPILER)
+  - cmake . -G"Unix Makefiles" -DCMAKE_CC_COMPILER=$(which $CCCOMPILER) -DCMAKE_CXX_COMPILER=$(which $CXXCOMPILER)
   - make
   - ./test/bin/unittest
 

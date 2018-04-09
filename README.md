@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/FragJage/MongooseCpp.svg?branch=master)](https://travis-ci.org/FragJage/MongooseCpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/yr84g6ic47jix751?svg=true)](https://ci.appveyor.com/project/FragJage/MongooseCpp)
-[![Coverity Scan Build](https://scan.coverity.com/projects/14945/badge.svg)](https://scan.coverity.com/projects/fragjage-mongoosecpp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb3f187d93bb4687a14e9ef2b6250838)](https://www.codacy.com/app/FragJage/MongooseCpp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FragJage/MongooseCpp&amp;utm_campaign=Badge_Grade)
 
 MongooseCpp
